@@ -34,7 +34,7 @@ while True:
 	
 	print("-"*20)
 	utils.sleeper(3)
-	# break
+	break
 
 utils.PWriter("FaroeseWordsLinks.p", data)
 print("+-"*20)
@@ -50,8 +50,13 @@ for d in data:
 	# Empty Table condition
 	if len(fData) == 0: continue
 	# converting into spelling format
-	cases = parser.caseExtractor(fData[0])
-	splFt = parser.spellingFormater(fData, cases)
+	try:
+		cases = parser.caseExtractor(fData[0])
+		splFt = parser.spellFormater2(fData[0][0], cases, fData[0][-1])
+	except:
+		print "[!] Hit table of inappropirate dimensions, SKIP!"
+		result.append(fData)
+		continue
 	# result.extend(splFt)
 # with open("FaroeesNounsData.spelf", "w") as f:
 	for s in splFt:
